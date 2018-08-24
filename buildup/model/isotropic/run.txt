@@ -1,0 +1,20 @@
+# Run information
+Run: buildup-%%name%%
+    Define:   energy==%%energy%%*MeV
+    Define:   hrange==10*%%mfp%%
+    Define:   detectLimit==energy*1.0001
+    Exe:      singlepass
+    Prev:     0
+    Last:     %%cycles%%
+    Status:   0
+    Pid:      0
+    StartRun: 0
+
+    # USRxxx data file: buildup-%%name%%_26.bnx
+    Data: \I_\U.\e
+        Unit: 26
+        Type: x
+        Rule: +,\I\d\d\d_fort\.\U
+        Rule: +,\I\d\d\d_ftn\.\U
+    End
+End

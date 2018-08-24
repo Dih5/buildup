@@ -1,0 +1,1244 @@
+TITLE
+buildup
+* Set the defaults for precision simulations
+DEFAULTS                                                              PRECISIO
+!@what.1=1*MeV
+#define energy 0.001
+* Half of the range to study
+* Suggested: use 10mfp, so detectors are in 0.1mfp steps
+* To find the mfp:
+* >>> from physdata import xray
+* >>> l=xray.fetch_elements()
+* >>> pb=l[81]
+* >>> print(pb.get_coefficients(use_density=True))
+!@what.1=10*1.240576
+#define hrange 12.40576
+!@what.1=energy*1.0001
+#define detectLimit 0.0010001
+* Define the beam characteristics
+!@what.1=-energy
+BEAM          -0.001              10000.                              PHOTON
+BEAMPOS
+EMFCUT        -1.E-6      1E-6                 nil  @LASTREG
+EMFCUT        -1.E-6      1E-6            BLCKHOLE  @LASTMAT          PROD-CUT
+* Single scattering activated everywhere for all charged particles
+*MULSOPT                                         1.        1. 99999999.GLOBAL
+GEOBEGIN                                                              COMBNAME
+    0    0          
+!@what.4=0.01*hrange
+SPH d1         0.0 0.0 0.0 0.12405759999999999
+!@what.4=0.02*hrange
+SPH d2         0.0 0.0 0.0 0.24811519999999998
+!@what.4=0.03*hrange
+SPH d3         0.0 0.0 0.0 0.37217279999999997
+!@what.4=0.04*hrange
+SPH d4         0.0 0.0 0.0 0.49623039999999996
+!@what.4=0.05*hrange
+SPH d5         0.0 0.0 0.0 0.620288
+!@what.4=0.06*hrange
+SPH d6         0.0 0.0 0.0 0.7443455999999999
+!@what.4=0.07*hrange
+SPH d7         0.0 0.0 0.0 0.8684032
+!@what.4=0.08*hrange
+SPH d8         0.0 0.0 0.0 0.9924607999999999
+!@what.4=0.09*hrange
+SPH d9         0.0 0.0 0.0 1.1165184
+!@what.4=0.10*hrange
+SPH d10        0.0 0.0 0.0 1.240576
+!@what.4=0.11*hrange
+SPH d11        0.0 0.0 0.0 1.3646336
+!@what.4=0.12*hrange
+SPH d12        0.0 0.0 0.0 1.4886911999999999
+!@what.4=0.13*hrange
+SPH d13        0.0 0.0 0.0 1.6127487999999999
+!@what.4=0.14*hrange
+SPH d14        0.0 0.0 0.0 1.7368064
+!@what.4=0.15*hrange
+SPH d15        0.0 0.0 0.0 1.8608639999999999
+!@what.4=0.16*hrange
+SPH d16        0.0 0.0 0.0 1.9849215999999998
+!@what.4=0.17*hrange
+SPH d17        0.0 0.0 0.0 2.1089792
+!@what.4=0.18*hrange
+SPH d18        0.0 0.0 0.0 2.2330368
+!@what.4=0.19*hrange
+SPH d19        0.0 0.0 0.0 2.3570944
+!@what.4=0.20*hrange
+SPH d20        0.0 0.0 0.0 2.481152
+!@what.4=0.21*hrange
+SPH d21        0.0 0.0 0.0 2.6052096
+!@what.4=0.22*hrange
+SPH d22        0.0 0.0 0.0 2.7292672
+!@what.4=0.23*hrange
+SPH d23        0.0 0.0 0.0 2.8533247999999998
+!@what.4=0.24*hrange
+SPH d24        0.0 0.0 0.0 2.9773823999999998
+!@what.4=0.25*hrange
+SPH d25        0.0 0.0 0.0 3.1014399999999998
+!@what.4=0.26*hrange
+SPH d26        0.0 0.0 0.0 3.2254975999999997
+!@what.4=0.27*hrange
+SPH d27        0.0 0.0 0.0 3.3495551999999997
+!@what.4=0.28*hrange
+SPH d28        0.0 0.0 0.0 3.4736128
+!@what.4=0.29*hrange
+SPH d29        0.0 0.0 0.0 3.5976703999999993
+!@what.4=0.30*hrange
+SPH d30        0.0 0.0 0.0 3.7217279999999997
+!@what.4=0.31*hrange
+SPH d31        0.0 0.0 0.0 3.8457855999999997
+!@what.4=0.32*hrange
+SPH d32        0.0 0.0 0.0 3.9698431999999997
+!@what.4=0.33*hrange
+SPH d33        0.0 0.0 0.0 4.0939008
+!@what.4=0.34*hrange
+SPH d34        0.0 0.0 0.0 4.2179584
+!@what.4=0.35*hrange
+SPH d35        0.0 0.0 0.0 4.342015999999999
+!@what.4=0.36*hrange
+SPH d36        0.0 0.0 0.0 4.4660736
+!@what.4=0.37*hrange
+SPH d37        0.0 0.0 0.0 4.590131199999999
+!@what.4=0.38*hrange
+SPH d38        0.0 0.0 0.0 4.7141888
+!@what.4=0.39*hrange
+SPH d39        0.0 0.0 0.0 4.8382464
+!@what.4=0.40*hrange
+SPH d40        0.0 0.0 0.0 4.962304
+!@what.4=0.41*hrange
+SPH d41        0.0 0.0 0.0 5.086361599999999
+!@what.4=0.42*hrange
+SPH d42        0.0 0.0 0.0 5.2104192
+!@what.4=0.43*hrange
+SPH d43        0.0 0.0 0.0 5.334476799999999
+!@what.4=0.44*hrange
+SPH d44        0.0 0.0 0.0 5.4585344
+!@what.4=0.45*hrange
+SPH d45        0.0 0.0 0.0 5.582592
+!@what.4=0.46*hrange
+SPH d46        0.0 0.0 0.0 5.7066495999999995
+!@what.4=0.47*hrange
+SPH d47        0.0 0.0 0.0 5.830707199999999
+!@what.4=0.48*hrange
+SPH d48        0.0 0.0 0.0 5.9547647999999995
+!@what.4=0.49*hrange
+SPH d49        0.0 0.0 0.0 6.078822399999999
+!@what.4=0.50*hrange
+SPH d50        0.0 0.0 0.0 6.2028799999999995
+!@what.4=0.51*hrange
+SPH d51        0.0 0.0 0.0 6.3269376
+!@what.4=0.52*hrange
+SPH d52        0.0 0.0 0.0 6.4509951999999995
+!@what.4=0.53*hrange
+SPH d53        0.0 0.0 0.0 6.5750528
+!@what.4=0.54*hrange
+SPH d54        0.0 0.0 0.0 6.6991103999999995
+!@what.4=0.55*hrange
+SPH d55        0.0 0.0 0.0 6.823168
+!@what.4=0.56*hrange
+SPH d56        0.0 0.0 0.0 6.9472256
+!@what.4=0.57*hrange
+SPH d57        0.0 0.0 0.0 7.071283199999999
+!@what.4=0.58*hrange
+SPH d58        0.0 0.0 0.0 7.1953407999999985
+!@what.4=0.59*hrange
+SPH d59        0.0 0.0 0.0 7.319398399999999
+!@what.4=0.60*hrange
+SPH d60        0.0 0.0 0.0 7.443455999999999
+!@what.4=0.61*hrange
+SPH d61        0.0 0.0 0.0 7.567513599999999
+!@what.4=0.62*hrange
+SPH d62        0.0 0.0 0.0 7.691571199999999
+!@what.4=0.63*hrange
+SPH d63        0.0 0.0 0.0 7.8156288
+!@what.4=0.64*hrange
+SPH d64        0.0 0.0 0.0 7.939686399999999
+!@what.4=0.65*hrange
+SPH d65        0.0 0.0 0.0 8.063744
+!@what.4=0.66*hrange
+SPH d66        0.0 0.0 0.0 8.1878016
+!@what.4=0.67*hrange
+SPH d67        0.0 0.0 0.0 8.3118592
+!@what.4=0.68*hrange
+SPH d68        0.0 0.0 0.0 8.4359168
+!@what.4=0.69*hrange
+SPH d69        0.0 0.0 0.0 8.559974399999998
+!@what.4=0.70*hrange
+SPH d70        0.0 0.0 0.0 8.684031999999998
+!@what.4=0.71*hrange
+SPH d71        0.0 0.0 0.0 8.808089599999999
+!@what.4=0.72*hrange
+SPH d72        0.0 0.0 0.0 8.9321472
+!@what.4=0.73*hrange
+SPH d73        0.0 0.0 0.0 9.0562048
+!@what.4=0.74*hrange
+SPH d74        0.0 0.0 0.0 9.180262399999998
+!@what.4=0.75*hrange
+SPH d75        0.0 0.0 0.0 9.304319999999999
+!@what.4=0.76*hrange
+SPH d76        0.0 0.0 0.0 9.4283776
+!@what.4=0.77*hrange
+SPH d77        0.0 0.0 0.0 9.5524352
+!@what.4=0.78*hrange
+SPH d78        0.0 0.0 0.0 9.6764928
+!@what.4=0.79*hrange
+SPH d79        0.0 0.0 0.0 9.800550399999999
+!@what.4=0.80*hrange
+SPH d80        0.0 0.0 0.0 9.924608
+!@what.4=0.81*hrange
+SPH d81        0.0 0.0 0.0 10.0486656
+!@what.4=0.82*hrange
+SPH d82        0.0 0.0 0.0 10.172723199999998
+!@what.4=0.83*hrange
+SPH d83        0.0 0.0 0.0 10.296780799999999
+!@what.4=0.84*hrange
+SPH d84        0.0 0.0 0.0 10.4208384
+!@what.4=0.85*hrange
+SPH d85        0.0 0.0 0.0 10.544896
+!@what.4=0.86*hrange
+SPH d86        0.0 0.0 0.0 10.668953599999998
+!@what.4=0.87*hrange
+SPH d87        0.0 0.0 0.0 10.793011199999999
+!@what.4=0.88*hrange
+SPH d88        0.0 0.0 0.0 10.9170688
+!@what.4=0.89*hrange
+SPH d89        0.0 0.0 0.0 11.0411264
+!@what.4=0.9*hrange
+SPH d90        0.0 0.0 0.0 11.165184
+!@what.4=0.91*hrange
+SPH d91        0.0 0.0 0.0 11.289241599999999
+!@what.4=0.92*hrange
+SPH d92        0.0 0.0 0.0 11.413299199999999
+!@what.4=0.93*hrange
+SPH d93        0.0 0.0 0.0 11.5373568
+!@what.4=0.94*hrange
+SPH d94        0.0 0.0 0.0 11.661414399999998
+!@what.4=0.95*hrange
+SPH d95        0.0 0.0 0.0 11.785471999999999
+!@what.4=0.96*hrange
+SPH d96        0.0 0.0 0.0 11.909529599999999
+!@what.4=0.97*hrange
+SPH d97        0.0 0.0 0.0 12.0335872
+!@what.4=0.98*hrange
+SPH d98        0.0 0.0 0.0 12.157644799999998
+!@what.4=0.99*hrange
+SPH d99        0.0 0.0 0.0 12.281702399999999
+!@what.4=1.*hrange
+SPH d100       0.0 0.0 0.0 12.405759999999999
+!@what.4=1.01*hrange
+SPH d101       0.0 0.0 0.0 12.5298176
+!@what.4=1.02*hrange
+SPH d102       0.0 0.0 0.0 12.6538752
+!@what.4=1.03*hrange
+SPH d103       0.0 0.0 0.0 12.777932799999999
+!@what.4=1.04*hrange
+SPH d104       0.0 0.0 0.0 12.901990399999999
+!@what.4=1.05*hrange
+SPH d105       0.0 0.0 0.0 13.026048
+!@what.4=1.06*hrange
+SPH d106       0.0 0.0 0.0 13.1501056
+!@what.4=1.07*hrange
+SPH d107       0.0 0.0 0.0 13.2741632
+!@what.4=1.08*hrange
+SPH d108       0.0 0.0 0.0 13.398220799999999
+!@what.4=1.09*hrange
+SPH d109       0.0 0.0 0.0 13.5222784
+!@what.4=1.1*hrange
+SPH d110       0.0 0.0 0.0 13.646336
+!@what.4=1.11*hrange
+SPH d111       0.0 0.0 0.0 13.7703936
+!@what.4=1.12*hrange
+SPH d112       0.0 0.0 0.0 13.8944512
+!@what.4=1.13*hrange
+SPH d113       0.0 0.0 0.0 14.018508799999998
+!@what.4=1.14*hrange
+SPH d114       0.0 0.0 0.0 14.142566399999998
+!@what.4=1.15*hrange
+SPH d115       0.0 0.0 0.0 14.266623999999998
+!@what.4=1.16*hrange
+SPH d116       0.0 0.0 0.0 14.390681599999997
+!@what.4=1.17*hrange
+SPH d117       0.0 0.0 0.0 14.514739199999998
+!@what.4=1.18*hrange
+SPH d118       0.0 0.0 0.0 14.638796799999998
+!@what.4=1.19*hrange
+SPH d119       0.0 0.0 0.0 14.762854399999998
+!@what.4=1.2*hrange
+SPH d120       0.0 0.0 0.0 14.886911999999999
+!@what.4=1.21*hrange
+SPH d121       0.0 0.0 0.0 15.0109696
+!@what.4=1.22*hrange
+SPH d122       0.0 0.0 0.0 15.135027199999998
+!@what.4=1.23*hrange
+SPH d123       0.0 0.0 0.0 15.259084799999998
+!@what.4=1.24*hrange
+SPH d124       0.0 0.0 0.0 15.383142399999999
+!@what.4=1.25*hrange
+SPH d125       0.0 0.0 0.0 15.5072
+!@what.4=1.26*hrange
+SPH d126       0.0 0.0 0.0 15.6312576
+!@what.4=1.27*hrange
+SPH d127       0.0 0.0 0.0 15.755315199999998
+!@what.4=1.28*hrange
+SPH d128       0.0 0.0 0.0 15.879372799999999
+!@what.4=1.29*hrange
+SPH d129       0.0 0.0 0.0 16.0034304
+!@what.4=1.3*hrange
+SPH d130       0.0 0.0 0.0 16.127488
+!@what.4=1.31*hrange
+SPH d131       0.0 0.0 0.0 16.2515456
+!@what.4=1.32*hrange
+SPH d132       0.0 0.0 0.0 16.3756032
+!@what.4=1.33*hrange
+SPH d133       0.0 0.0 0.0 16.4996608
+!@what.4=1.34*hrange
+SPH d134       0.0 0.0 0.0 16.6237184
+!@what.4=1.35*hrange
+SPH d135       0.0 0.0 0.0 16.747775999999998
+!@what.4=1.36*hrange
+SPH d136       0.0 0.0 0.0 16.8718336
+!@what.4=1.37*hrange
+SPH d137       0.0 0.0 0.0 16.9958912
+!@what.4=1.38*hrange
+SPH d138       0.0 0.0 0.0 17.119948799999996
+!@what.4=1.39*hrange
+SPH d139       0.0 0.0 0.0 17.244006399999996
+!@what.4=1.4*hrange
+SPH d140       0.0 0.0 0.0 17.368063999999997
+!@what.4=1.41*hrange
+SPH d141       0.0 0.0 0.0 17.492121599999997
+!@what.4=1.42*hrange
+SPH d142       0.0 0.0 0.0 17.616179199999998
+!@what.4=1.43*hrange
+SPH d143       0.0 0.0 0.0 17.740236799999998
+!@what.4=1.44*hrange
+SPH d144       0.0 0.0 0.0 17.8642944
+!@what.4=1.45*hrange
+SPH d145       0.0 0.0 0.0 17.988352
+!@what.4=1.46*hrange
+SPH d146       0.0 0.0 0.0 18.1124096
+!@what.4=1.47*hrange
+SPH d147       0.0 0.0 0.0 18.2364672
+!@what.4=1.48*hrange
+SPH d148       0.0 0.0 0.0 18.360524799999997
+!@what.4=1.49*hrange
+SPH d149       0.0 0.0 0.0 18.484582399999997
+!@what.4=1.5*hrange
+SPH d150       0.0 0.0 0.0 18.608639999999998
+!@what.4=1.51*hrange
+SPH d151       0.0 0.0 0.0 18.732697599999998
+!@what.4=1.52*hrange
+SPH d152       0.0 0.0 0.0 18.8567552
+!@what.4=1.53*hrange
+SPH d153       0.0 0.0 0.0 18.9808128
+!@what.4=1.54*hrange
+SPH d154       0.0 0.0 0.0 19.1048704
+!@what.4=1.55*hrange
+SPH d155       0.0 0.0 0.0 19.228928
+!@what.4=1.56*hrange
+SPH d156       0.0 0.0 0.0 19.3529856
+!@what.4=1.57*hrange
+SPH d157       0.0 0.0 0.0 19.4770432
+!@what.4=1.58*hrange
+SPH d158       0.0 0.0 0.0 19.601100799999998
+!@what.4=1.59*hrange
+SPH d159       0.0 0.0 0.0 19.725158399999998
+!@what.4=1.6*hrange
+SPH d160       0.0 0.0 0.0 19.849216
+!@what.4=1.61*hrange
+SPH d161       0.0 0.0 0.0 19.9732736
+!@what.4=1.62*hrange
+SPH d162       0.0 0.0 0.0 20.0973312
+!@what.4=1.63*hrange
+SPH d163       0.0 0.0 0.0 20.221388799999996
+!@what.4=1.64*hrange
+SPH d164       0.0 0.0 0.0 20.345446399999997
+!@what.4=1.65*hrange
+SPH d165       0.0 0.0 0.0 20.469503999999997
+!@what.4=1.66*hrange
+SPH d166       0.0 0.0 0.0 20.593561599999997
+!@what.4=1.67*hrange
+SPH d167       0.0 0.0 0.0 20.717619199999998
+!@what.4=1.68*hrange
+SPH d168       0.0 0.0 0.0 20.8416768
+!@what.4=1.69*hrange
+SPH d169       0.0 0.0 0.0 20.9657344
+!@what.4=1.7*hrange
+SPH d170       0.0 0.0 0.0 21.089792
+!@what.4=1.71*hrange
+SPH d171       0.0 0.0 0.0 21.2138496
+!@what.4=1.72*hrange
+SPH d172       0.0 0.0 0.0 21.337907199999997
+!@what.4=1.73*hrange
+SPH d173       0.0 0.0 0.0 21.461964799999997
+!@what.4=1.74*hrange
+SPH d174       0.0 0.0 0.0 21.586022399999997
+!@what.4=1.75*hrange
+SPH d175       0.0 0.0 0.0 21.710079999999998
+!@what.4=1.76*hrange
+SPH d176       0.0 0.0 0.0 21.8341376
+!@what.4=1.77*hrange
+SPH d177       0.0 0.0 0.0 21.9581952
+!@what.4=1.78*hrange
+SPH d178       0.0 0.0 0.0 22.0822528
+!@what.4=1.79*hrange
+SPH d179       0.0 0.0 0.0 22.2063104
+!@what.4=1.8*hrange
+SPH d180       0.0 0.0 0.0 22.330368
+!@what.4=1.81*hrange
+SPH d181       0.0 0.0 0.0 22.4544256
+!@what.4=1.82*hrange
+SPH d182       0.0 0.0 0.0 22.578483199999997
+!@what.4=1.83*hrange
+SPH d183       0.0 0.0 0.0 22.702540799999998
+!@what.4=1.84*hrange
+SPH d184       0.0 0.0 0.0 22.826598399999998
+!@what.4=1.85*hrange
+SPH d185       0.0 0.0 0.0 22.950656
+!@what.4=1.86*hrange
+SPH d186       0.0 0.0 0.0 23.0747136
+!@what.4=1.87*hrange
+SPH d187       0.0 0.0 0.0 23.1987712
+!@what.4=1.88*hrange
+SPH d188       0.0 0.0 0.0 23.322828799999996
+!@what.4=1.89*hrange
+SPH d189       0.0 0.0 0.0 23.446886399999997
+!@what.4=1.9*hrange
+SPH d190       0.0 0.0 0.0 23.570943999999997
+!@what.4=1.91*hrange
+SPH d191       0.0 0.0 0.0 23.695001599999998
+!@what.4=1.92*hrange
+SPH d192       0.0 0.0 0.0 23.819059199999998
+!@what.4=1.93*hrange
+SPH d193       0.0 0.0 0.0 23.9431168
+!@what.4=1.94*hrange
+SPH d194       0.0 0.0 0.0 24.0671744
+!@what.4=1.95*hrange
+SPH d195       0.0 0.0 0.0 24.191231999999996
+!@what.4=1.96*hrange
+SPH d196       0.0 0.0 0.0 24.315289599999996
+!@what.4=1.97*hrange
+SPH d197       0.0 0.0 0.0 24.439347199999997
+!@what.4=1.98*hrange
+SPH d198       0.0 0.0 0.0 24.563404799999997
+!@what.4=1.99*hrange
+SPH d199       0.0 0.0 0.0 24.687462399999998
+!@what.4=2.*hrange
+SPH d200       0.0 0.0 0.0 24.811519999999998
+!@what.4=2.01*hrange
+SPH d201       0.0 0.0 0.0 24.935577599999995
+!@what.4=10*hrange
+SPH world      0.0 0.0 0.0 124.0576
+END
+nil          5 world-d201
+r1           5 d1
+r2           5 d2+(-d1)
+r3           5 d3+(-d2)
+r4           5 d4+(-d3)
+r5           5 d5+(-d4)
+r6           5 d6+(-d5)
+r7           5 d7+(-d6)
+r8           5 d8+(-d7)
+r9           5 d9+(-d8)
+r10          5 d10+(-d9)
+r11          5 d11+(-d10)
+r12          5 d12+(-d11)
+r13          5 d13+(-d12)
+r14          5 d14+(-d13)
+r15          5 d15+(-d14)
+r16          5 d16+(-d15)
+r17          5 d17+(-d16)
+r18          5 d18+(-d17)
+r19          5 d19+(-d18)
+r20          5 d20+(-d19)
+r21          5 d21+(-d20)
+r22          5 d22+(-d21)
+r23          5 d23+(-d22)
+r24          5 d24+(-d23)
+r25          5 d25+(-d24)
+r26          5 d26+(-d25)
+r27          5 d27+(-d26)
+r28          5 d28+(-d27)
+r29          5 d29+(-d28)
+r30          5 d30+(-d29)
+r31          5 d31+(-d30)
+r32          5 d32+(-d31)
+r33          5 d33+(-d32)
+r34          5 d34+(-d33)
+r35          5 d35+(-d34)
+r36          5 d36+(-d35)
+r37          5 d37+(-d36)
+r38          5 d38+(-d37)
+r39          5 d39+(-d38)
+r40          5 d40+(-d39)
+r41          5 d41+(-d40)
+r42          5 d42+(-d41)
+r43          5 d43+(-d42)
+r44          5 d44+(-d43)
+r45          5 d45+(-d44)
+r46          5 d46+(-d45)
+r47          5 d47+(-d46)
+r48          5 d48+(-d47)
+r49          5 d49+(-d48)
+r50          5 d50+(-d49)
+r51          5 d51+(-d50)
+r52          5 d52+(-d51)
+r53          5 d53+(-d52)
+r54          5 d54+(-d53)
+r55          5 d55+(-d54)
+r56          5 d56+(-d55)
+r57          5 d57+(-d56)
+r58          5 d58+(-d57)
+r59          5 d59+(-d58)
+r60          5 d60+(-d59)
+r61          5 d61+(-d60)
+r62          5 d62+(-d61)
+r63          5 d63+(-d62)
+r64          5 d64+(-d63)
+r65          5 d65+(-d64)
+r66          5 d66+(-d65)
+r67          5 d67+(-d66)
+r68          5 d68+(-d67)
+r69          5 d69+(-d68)
+r70          5 d70+(-d69)
+r71          5 d71+(-d70)
+r72          5 d72+(-d71)
+r73          5 d73+(-d72)
+r74          5 d74+(-d73)
+r75          5 d75+(-d74)
+r76          5 d76+(-d75)
+r77          5 d77+(-d76)
+r78          5 d78+(-d77)
+r79          5 d79+(-d78)
+r80          5 d80+(-d79)
+r81          5 d81+(-d80)
+r82          5 d82+(-d81)
+r83          5 d83+(-d82)
+r84          5 d84+(-d83)
+r85          5 d85+(-d84)
+r86          5 d86+(-d85)
+r87          5 d87+(-d86)
+r88          5 d88+(-d87)
+r89          5 d89+(-d88)
+r90          5 d90+(-d89)
+r91          5 d91+(-d90)
+r92          5 d92+(-d91)
+r93          5 d93+(-d92)
+r94          5 d94+(-d93)
+r95          5 d95+(-d94)
+r96          5 d96+(-d95)
+r97          5 d97+(-d96)
+r98          5 d98+(-d97)
+r99          5 d99+(-d98)
+r100         5 d100+(-d99)
+r101         5 d101+(-d100)
+r102         5 d102+(-d101)
+r103         5 d103+(-d102)
+r104         5 d104+(-d103)
+r105         5 d105+(-d104)
+r106         5 d106+(-d105)
+r107         5 d107+(-d106)
+r108         5 d108+(-d107)
+r109         5 d109+(-d108)
+r110         5 d110+(-d109)
+r111         5 d111+(-d110)
+r112         5 d112+(-d111)
+r113         5 d113+(-d112)
+r114         5 d114+(-d113)
+r115         5 d115+(-d114)
+r116         5 d116+(-d115)
+r117         5 d117+(-d116)
+r118         5 d118+(-d117)
+r119         5 d119+(-d118)
+r120         5 d120+(-d119)
+r121         5 d121+(-d120)
+r122         5 d122+(-d121)
+r123         5 d123+(-d122)
+r124         5 d124+(-d123)
+r125         5 d125+(-d124)
+r126         5 d126+(-d125)
+r127         5 d127+(-d126)
+r128         5 d128+(-d127)
+r129         5 d129+(-d128)
+r130         5 d130+(-d129)
+r131         5 d131+(-d130)
+r132         5 d132+(-d131)
+r133         5 d133+(-d132)
+r134         5 d134+(-d133)
+r135         5 d135+(-d134)
+r136         5 d136+(-d135)
+r137         5 d137+(-d136)
+r138         5 d138+(-d137)
+r139         5 d139+(-d138)
+r140         5 d140+(-d139)
+r141         5 d141+(-d140)
+r142         5 d142+(-d141)
+r143         5 d143+(-d142)
+r144         5 d144+(-d143)
+r145         5 d145+(-d144)
+r146         5 d146+(-d145)
+r147         5 d147+(-d146)
+r148         5 d148+(-d147)
+r149         5 d149+(-d148)
+r150         5 d150+(-d149)
+r151         5 d151+(-d150)
+r152         5 d152+(-d151)
+r153         5 d153+(-d152)
+r154         5 d154+(-d153)
+r155         5 d155+(-d154)
+r156         5 d156+(-d155)
+r157         5 d157+(-d156)
+r158         5 d158+(-d157)
+r159         5 d159+(-d158)
+r160         5 d160+(-d159)
+r161         5 d161+(-d160)
+r162         5 d162+(-d161)
+r163         5 d163+(-d162)
+r164         5 d164+(-d163)
+r165         5 d165+(-d164)
+r166         5 d166+(-d165)
+r167         5 d167+(-d166)
+r168         5 d168+(-d167)
+r169         5 d169+(-d168)
+r170         5 d170+(-d169)
+r171         5 d171+(-d170)
+r172         5 d172+(-d171)
+r173         5 d173+(-d172)
+r174         5 d174+(-d173)
+r175         5 d175+(-d174)
+r176         5 d176+(-d175)
+r177         5 d177+(-d176)
+r178         5 d178+(-d177)
+r179         5 d179+(-d178)
+r180         5 d180+(-d179)
+r181         5 d181+(-d180)
+r182         5 d182+(-d181)
+r183         5 d183+(-d182)
+r184         5 d184+(-d183)
+r185         5 d185+(-d184)
+r186         5 d186+(-d185)
+r187         5 d187+(-d186)
+r188         5 d188+(-d187)
+r189         5 d189+(-d188)
+r190         5 d190+(-d189)
+r191         5 d191+(-d190)
+r192         5 d192+(-d191)
+r193         5 d193+(-d192)
+r194         5 d194+(-d193)
+r195         5 d195+(-d194)
+r196         5 d196+(-d195)
+r197         5 d197+(-d196)
+r198         5 d198+(-d197)
+r199         5 d199+(-d198)
+r200         5 d200+(-d199)
+r201         5 d201+(-d200)
+END
+GEOEND
+ASSIGNMA    BLCKHOLE       nil
+ASSIGNMA    %%MATE%%        r1  @LASTREG
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.        r1        r2          phSing2
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.        r2        r3          phSing3
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.        r3        r4          phSing4
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.        r4        r5          phSing5
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.        r5        r6          phSing6
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.        r6        r7          phSing7
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.        r7        r8          phSing8
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.        r8        r9          phSing9
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.        r9       r10          phSing10
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r10       r11          phSing11
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r11       r12          phSing12
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r12       r13          phSing13
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r13       r14          phSing14
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r14       r15          phSing15
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r15       r16          phSing16
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r16       r17          phSing17
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r17       r18          phSing18
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r18       r19          phSing19
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r19       r20          phSing20
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r20       r21          phSing21
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r21       r22          phSing22
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r22       r23          phSing23
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r23       r24          phSing24
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r24       r25          phSing25
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r25       r26          phSing26
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r26       r27          phSing27
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r27       r28          phSing28
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r28       r29          phSing29
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r29       r30          phSing30
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r30       r31          phSing31
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r31       r32          phSing32
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r32       r33          phSing33
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r33       r34          phSing34
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r34       r35          phSing35
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r35       r36          phSing36
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r36       r37          phSing37
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r37       r38          phSing38
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r38       r39          phSing39
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r39       r40          phSing40
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r40       r41          phSing41
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r41       r42          phSing42
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r42       r43          phSing43
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r43       r44          phSing44
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r44       r45          phSing45
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r45       r46          phSing46
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r46       r47          phSing47
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r47       r48          phSing48
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r48       r49          phSing49
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r49       r50          phSing50
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r50       r51          phSing51
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r51       r52          phSing52
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r52       r53          phSing53
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r53       r54          phSing54
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r54       r55          phSing55
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r55       r56          phSing56
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r56       r57          phSing57
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r57       r58          phSing58
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r58       r59          phSing59
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r59       r60          phSing60
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r60       r61          phSing61
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r61       r62          phSing62
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r62       r63          phSing63
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r63       r64          phSing64
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r64       r65          phSing65
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r65       r66          phSing66
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r66       r67          phSing67
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r67       r68          phSing68
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r68       r69          phSing69
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r69       r70          phSing70
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r70       r71          phSing71
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r71       r72          phSing72
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r72       r73          phSing73
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r73       r74          phSing74
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r74       r75          phSing75
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r75       r76          phSing76
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r76       r77          phSing77
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r77       r78          phSing78
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r78       r79          phSing79
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r79       r80          phSing80
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r80       r81          phSing81
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r81       r82          phSing82
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r82       r83          phSing83
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r83       r84          phSing84
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r84       r85          phSing85
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r85       r86          phSing86
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r86       r87          phSing87
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r87       r88          phSing88
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r88       r89          phSing89
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r89       r90          phSing90
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r90       r91          phSing91
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r91       r92          phSing92
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r92       r93          phSing93
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r93       r94          phSing94
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r94       r95          phSing95
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r95       r96          phSing96
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r96       r97          phSing97
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r97       r98          phSing98
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r98       r99          phSing99
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.       r99      r100          phSing100
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r100      r101          phSing101
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r101      r102          phSing102
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r102      r103          phSing103
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r103      r104          phSing104
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r104      r105          phSing105
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r105      r106          phSing106
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r106      r107          phSing107
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r107      r108          phSing108
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r108      r109          phSing109
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r109      r110          phSing110
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r110      r111          phSing111
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r111      r112          phSing112
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r112      r113          phSing113
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r113      r114          phSing114
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r114      r115          phSing115
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r115      r116          phSing116
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r116      r117          phSing117
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r117      r118          phSing118
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r118      r119          phSing119
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r119      r120          phSing120
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r120      r121          phSing121
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r121      r122          phSing122
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r122      r123          phSing123
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r123      r124          phSing124
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r124      r125          phSing125
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r125      r126          phSing126
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r126      r127          phSing127
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r127      r128          phSing128
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r128      r129          phSing129
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r129      r130          phSing130
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r130      r131          phSing131
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r131      r132          phSing132
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r132      r133          phSing133
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r133      r134          phSing134
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r134      r135          phSing135
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r135      r136          phSing136
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r136      r137          phSing137
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r137      r138          phSing138
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r138      r139          phSing139
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r139      r140          phSing140
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r140      r141          phSing141
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r141      r142          phSing142
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r142      r143          phSing143
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r143      r144          phSing144
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r144      r145          phSing145
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r145      r146          phSing146
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r146      r147          phSing147
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r147      r148          phSing148
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r148      r149          phSing149
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r149      r150          phSing150
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r150      r151          phSing151
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r151      r152          phSing152
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r152      r153          phSing153
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r153      r154          phSing154
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r154      r155          phSing155
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r155      r156          phSing156
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r156      r157          phSing157
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r157      r158          phSing158
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r158      r159          phSing159
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r159      r160          phSing160
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r160      r161          phSing161
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r161      r162          phSing162
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r162      r163          phSing163
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r163      r164          phSing164
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r164      r165          phSing165
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r165      r166          phSing166
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r166      r167          phSing167
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r167      r168          phSing168
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r168      r169          phSing169
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r169      r170          phSing170
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r170      r171          phSing171
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r171      r172          phSing172
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r172      r173          phSing173
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r173      r174          phSing174
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r174      r175          phSing175
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r175      r176          phSing176
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r176      r177          phSing177
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r177      r178          phSing178
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r178      r179          phSing179
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r179      r180          phSing180
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r180      r181          phSing181
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r181      r182          phSing182
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r182      r183          phSing183
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r183      r184          phSing184
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r184      r185          phSing185
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r185      r186          phSing186
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r186      r187          phSing187
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r187      r188          phSing188
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r188      r189          phSing189
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r189      r190          phSing190
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r190      r191          phSing191
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r191      r192          phSing192
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r192      r193          phSing193
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r193      r194          phSing194
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r194      r195          phSing195
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r195      r196          phSing196
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r196      r197          phSing197
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r197      r198          phSing198
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r198      r199          phSing199
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r199      r200          phSing200
+USRBDX     0.0010001      1E-6      300.                            1. &
+!@what.7=detectLimit
+USRBDX          101.    PHOTON      -26.      r200       nil          phSing201
+USRBDX     0.0010001      1E-6      300.                            1. &
+* ..+....1....+....2....+....3....+....4....+....5....+....6....+....7..
+* Set the random number seed
+RANDOMIZ          1.
+* Set the number of primary histories to be simulated in the run
+START        150000.
+STOP
