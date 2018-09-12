@@ -84,11 +84,13 @@ class DetectorSingDif:
             # Scale with the density the magnitudes that depend on it
             self.data.append(list(map(lambda a, b: a * b, l_float, unit_scale)))
 
+        self.data = np.asarray(self.data)
+
     @classmethod
     def from_data(cls, data):
         """Create a DetectorSingDif from existing data"""
         detector = DetectorSingDif("")
-        detector.data = data
+        detector.data = np.asarray(data)
         return detector
 
     def __repr__(self):
@@ -126,20 +128,24 @@ class DetectorSingDif:
     def get_norm(self, weight=None, extreme_singular=False):
         """Approximate the value of a norm in the histogram using the mean point"""
         if weight is None:
-            weight = lambda x: 1
+            return (self.data[:, 2] * (self.data[:, 1] - self.data[:, 0])).sum()
+        # weights = np.asarray(list(map(weight, (self.data[:, 0] + self.data[:, 1]) / 2)))
+        weights = weight((self.data[:, 0] + self.data[:, 1]) / 2)
         if extreme_singular:
-            last = self.data[-1]
-            return sum([l[2] * weight((l[1] + l[0]) / 2) * (l[1] - l[0]) for l in self.data[:-1]]) + \
-                   last[2] * weight(last[1]) * (last[1] - last[0])
-        else:
-            return sum([l[2] * weight((l[1] + l[0]) / 2) * (l[1] - l[0]) for l in self.data])
+            weights[-1] = weight(self.data[-1, 1])
+        return (self.data[:, 2] * weights * (self.data[:, 1] - self.data[:, 0])).sum()
 
     def get_norm_stat_error(self, weight=None, extreme_singular=False):
         """Approximate the error in a norm due to statistical uncertainty"""
         if weight is None:
-            weight = lambda x: 1
+            weights = np.ones(len(self.data))
+        else:
+            weights = weight((self.data[:, 0] + self.data[:, 1]) / 2)
+            if extreme_singular:
+                weights[-1] = weight(self.data[-1, 1])
         # No need to distinguish singular
-        return sum([(l[2] * l[3] * 0.01 * weight((l[1] + l[0]) / 2) * (l[1] - l[0])) ** 2 for l in self.data]) ** 0.5
+        return ((self.data[:, 2] * self.data[:, 3] * 0.01 * weights * (
+                self.data[:, 1] - self.data[:, 0])) ** 2).sum() ** 0.5
 
     def get_norm_hist_error(self, weight=None, extreme_singular=False):
         """Approximate the error in a norm due to binning"""
@@ -147,9 +153,13 @@ class DetectorSingDif:
             return 0  # Total counts are exact
         ll = self.data[:-1] if extreme_singular else self.data
         # TODO: If weight is not monotone the max error might not be captured
-        up_est = sum([l[2] * max([weight((l[1] + l[0]) / 2), weight(l[1]), weight(l[0])]) * (l[1] - l[0]) for l in ll])
-        lo_est = sum([l[2] * min([weight((l[1] + l[0]) / 2), weight(l[1]), weight(l[0])]) * (l[1] - l[0]) for l in ll])
-        reg_est = sum([l[2] * weight((l[1] + l[0]) / 2) * (l[1] - l[0]) for l in ll])
+        weights_mean = weight((ll[:, 1] + ll[:, 0]) / 2)
+        weights_low = weight(ll[:, 0])
+        weights_hi = weight(ll[:, 1])
+
+        up_est = (ll[:, 2] * np.amax((weights_mean, weights_low, weights_hi), axis=0) * (ll[:, 1] - ll[:, 0])).sum()
+        lo_est = (ll[:, 2] * np.amin((weights_mean, weights_low, weights_hi), axis=0) * (ll[:, 1] - ll[:, 0])).sum()
+        reg_est = (ll[:, 2] * weights_mean * (ll[:, 1] - ll[:, 0])).sum()
         # Note reg_est is not get_norm, since the singular component is excluded if present
         return max(abs(up_est - reg_est), abs(lo_est - reg_est))
 
@@ -233,8 +243,6 @@ def _get_buildup_data_tab(geometry="isotropic", material="lead", weight=None, sk
 
 def get_buildup_data(geometry="isotropic", material="lead", weight=None, skip_error=False):
     """Get a build-up coefficient from the npy files"""
-    if weight is None:
-        weight = lambda x: 1
     distances = list(np.arange(0.1, 20.001, 0.1))  # Must be the ones in the simulation
     re_pattern = r"buildup-([0-9]+\.?[0-9]*).npy"
     glob_pattern = "buildup-*.npy"
@@ -250,19 +258,20 @@ def get_buildup_data(geometry="isotropic", material="lead", weight=None, skip_er
     else:
         raise ValueError("Unknown geometry: %s" % geometry)
     for energy in energies:
+        weight_energy = 1 if weight is None else weight(energy)
         data_dir = os.path.join(_data_path, geometry, material,
                                 "buildup-%s.npy" % float_to_str(energy))
         d_list = [DetectorSingDif.from_data(data) for data in np.load(data_dir)]
         build_up_list.append(
-            [d.get_norm(weight, extreme_singular=True) / atten_function(distance) / weight(energy) for d, distance in
+            [d.get_norm(weight, extreme_singular=True) / atten_function(distance) / weight_energy for d, distance in
              zip(d_list, distances)])
         if not skip_error:
             stat_error_list.append(
-                [d.get_norm_stat_error(weight, extreme_singular=True) / atten_function(distance) / weight(energy) for
+                [d.get_norm_stat_error(weight, extreme_singular=True) / atten_function(distance) / weight_energy for
                  d, distance in
                  zip(d_list, distances)])
             hist_error_list.append(
-                [d.get_norm_hist_error(weight, extreme_singular=True) / atten_function(distance) / weight(energy) for
+                [d.get_norm_hist_error(weight, extreme_singular=True) / atten_function(distance) / weight_energy for
                  d, distance in
                  zip(d_list, distances)])
 
