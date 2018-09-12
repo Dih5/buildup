@@ -64,6 +64,11 @@ class DetectorSingDif:
             unit_integrated (float): Conversion factor to apply the scored magnitud. Note the bin size is already
                                      changed by unit_energy.
         """
+        if tab_lis == "":
+            self.name = ""
+            self.number = ""
+            return
+
         r = re.search('# Detector n:\s*([0-9]+)\s*(\S+)', tab_lis)  # Match and parse 1st line
         self.name = r.group(2)
         self.number = r.group(1)
@@ -78,6 +83,13 @@ class DetectorSingDif:
             l_float = map(float, re.findall(num_pattern, line))
             # Scale with the density the magnitudes that depend on it
             self.data.append(list(map(lambda a, b: a * b, l_float, unit_scale)))
+
+    @classmethod
+    def from_data(cls, data):
+        """Create a DetectorSingDif from existing data"""
+        detector = DetectorSingDif("")
+        detector.data = data
+        return detector
 
     def __repr__(self):
         return "<DetectorSingDif" + str(self.name) + "(" + str(len(self.data)) + ")>"
@@ -165,14 +177,25 @@ def import_single_bdx(tab_lis, unit_energy=1.0, unit_integrated=1.0):
         yield DetectorSingDif(d, unit_energy=unit_energy, unit_integrated=unit_integrated)
 
 
-def get_buildup_data(geometry="isotropic", material="lead", weight=None, skip_error=False):
+def float_to_str(number):
+    """Return a string representation of a float with no rear '.0', as used in the files."""
+    s = str(number)
+    # No IndexError may rise
+    if s[-2:] == '.0':
+        s = s[:-2]
+    return s
+
+
+def _get_buildup_data_tab(geometry="isotropic", material="lead", weight=None, skip_error=False):
+    """Get a build-up coefficient from the tab.lis files"""
+    # DEPRECATED: Can be internally used for diagnostic, but npy files are preferred for performance and size
     if weight is None:
         weight = lambda x: 1
     distances = list(np.arange(0.1, 20.001, 0.1))  # Must be the ones in the simulation
-    re_pattern = "buildup-([0-9]+)_26_tab.lis"
+    re_pattern = "buildup-([0-9]+\.?[0-9]*)_26_tab.lis"
     glob_pattern = "buildup-*_26_tab.lis"
     file_list = glob(os.path.join(_data_path, geometry, material, glob_pattern))
-    energies = sorted([int(re.search(re_pattern, f).group(1)) for f in file_list])
+    energies = sorted([float(re.search(re_pattern, f).group(1)) for f in file_list])
     file = 26  # Fixed output unit
     build_up_list = []
     stat_error_list = []
@@ -180,11 +203,12 @@ def get_buildup_data(geometry="isotropic", material="lead", weight=None, skip_er
     if geometry in ["mono", "isotropic"]:
         atten_function = lambda distance: np.exp(-distance)
     elif geometry == "planariso":
-        atten_function = lambda distance: -expi(-distance)/2
+        atten_function = lambda distance: -expi(-distance) / 2
     else:
-        raise ValueError("Unknown geometry: %s"%geometry)
+        raise ValueError("Unknown geometry: %s" % geometry)
     for energy in energies:
-        data_dir = os.path.join(_data_path, geometry, material, "buildup-%d_%d_tab.lis" % (energy, file,))
+        data_dir = os.path.join(_data_path, geometry, material,
+                                "buildup-%s_%d_tab.lis" % (float_to_str(energy), file,))
         with open(data_dir, 'r') as f:
             s = f.read()
         d_list = list(import_single_bdx(s, unit_energy=1E3))
@@ -207,7 +231,77 @@ def get_buildup_data(geometry="isotropic", material="lead", weight=None, skip_er
         return BuildUpData(energies, distances, build_up_list, stat_error=stat_error_list, hist_error=hist_error_list)
 
 
+def get_buildup_data(geometry="isotropic", material="lead", weight=None, skip_error=False):
+    """Get a build-up coefficient from the npy files"""
+    if weight is None:
+        weight = lambda x: 1
+    distances = list(np.arange(0.1, 20.001, 0.1))  # Must be the ones in the simulation
+    re_pattern = r"buildup-([0-9]+\.?[0-9]*).npy"
+    glob_pattern = "buildup-*.npy"
+    file_list = glob(os.path.join(_data_path, geometry, material, glob_pattern))
+    energies = sorted([float(re.search(re_pattern, f).group(1)) for f in file_list])
+    build_up_list = []
+    stat_error_list = []
+    hist_error_list = []
+    if geometry in ["mono", "isotropic"]:
+        atten_function = lambda distance: np.exp(-distance)
+    elif geometry == "planariso":
+        atten_function = lambda distance: -expi(-distance) / 2
+    else:
+        raise ValueError("Unknown geometry: %s" % geometry)
+    for energy in energies:
+        data_dir = os.path.join(_data_path, geometry, material,
+                                "buildup-%s.npy" % float_to_str(energy))
+        d_list = [DetectorSingDif.from_data(data) for data in np.load(data_dir)]
+        build_up_list.append(
+            [d.get_norm(weight, extreme_singular=True) / atten_function(distance) / weight(energy) for d, distance in
+             zip(d_list, distances)])
+        if not skip_error:
+            stat_error_list.append(
+                [d.get_norm_stat_error(weight, extreme_singular=True) / atten_function(distance) / weight(energy) for
+                 d, distance in
+                 zip(d_list, distances)])
+            hist_error_list.append(
+                [d.get_norm_hist_error(weight, extreme_singular=True) / atten_function(distance) / weight(energy) for
+                 d, distance in
+                 zip(d_list, distances)])
+
+    if skip_error:
+        return BuildUpData(energies, distances, build_up_list)
+    else:
+        return BuildUpData(energies, distances, build_up_list, stat_error=stat_error_list, hist_error=hist_error_list)
+
+
+def all_tab_data_to_bin():
+    """Process all tab.lis files in the data directory to create equivalent npy files"""
+    re_pattern = r"buildup-([0-9]+\.?[0-9]*)_26_tab.lis"
+    glob_pattern = "buildup-*_26_tab.lis"
+    for dir in glob(os.path.join(_data_path, "*", "*")):
+        file_list = glob(os.path.join(dir, glob_pattern))
+        energies = sorted([float(re.search(re_pattern, f).group(1)) for f in file_list])
+        file = 26  # Fixed output unit
+        for energy in energies:
+            data_dir = os.path.join(dir, "buildup-%s_%d_tab.lis" % (float_to_str(energy), file,))
+            with open(data_dir, 'r') as f:
+                s = f.read()
+            np.save(os.path.join(dir, "buildup-%s.npy" % float_to_str(energy)),
+                    np.asarray(list(d.data for d in import_single_bdx(s, unit_energy=1E3))))
+
+
 class BuildUpData:
+    """
+    An object representing a certain build-up factor, which is a function of the distance and the energy and has been
+    calculated for a magnitude, a material and a geometry.
+
+    Attributes:
+        energies (numpy.ndarray): The energies in the grid.
+        distances (numpy.ndarray): The distances in the grid.
+        values (numpy.ndarray): The values in the grid.
+        stat_error (numpy.ndarray): The error due to statistical uncertainty in the simulations.
+        hist_error (numpy.ndarray): The error due to the numerical effect of the grid.
+
+    """
+
     def __init__(self, energies, distances, values, stat_error=None, hist_error=None):
         self.energies = np.asarray(energies)
         self.distances = np.asarray(distances)
@@ -257,7 +351,7 @@ class BuildUpData:
 
     def get_interpolated_data(self, energies, distances, kx=1, ky=1):
         """
-        Get another BuildUpData instance by changing the mesh by interpolation
+        Get another BuildUpData instance by changing the mesh by interpolation.
 
         Args:
             energies (list of float): Energies in the new mesh (in MeV).
