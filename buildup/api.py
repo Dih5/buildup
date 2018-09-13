@@ -196,51 +196,6 @@ def float_to_str(number):
     return s
 
 
-def _get_buildup_data_tab(geometry="isotropic", material="lead", weight=None, skip_error=False):
-    """Get a build-up coefficient from the tab.lis files"""
-    # DEPRECATED: Can be internally used for diagnostic, but npy files are preferred for performance and size
-    if weight is None:
-        weight = lambda x: 1
-    distances = list(np.arange(0.1, 20.001, 0.1))  # Must be the ones in the simulation
-    re_pattern = "buildup-([0-9]+\.?[0-9]*)_26_tab.lis"
-    glob_pattern = "buildup-*_26_tab.lis"
-    file_list = glob(os.path.join(_data_path, geometry, material, glob_pattern))
-    energies = sorted([float(re.search(re_pattern, f).group(1)) for f in file_list])
-    file = 26  # Fixed output unit
-    build_up_list = []
-    stat_error_list = []
-    hist_error_list = []
-    if geometry in ["mono", "isotropic"]:
-        atten_function = lambda distance: np.exp(-distance)
-    elif geometry == "planariso":
-        atten_function = lambda distance: -expi(-distance) / 2
-    else:
-        raise ValueError("Unknown geometry: %s" % geometry)
-    for energy in energies:
-        data_dir = os.path.join(_data_path, geometry, material,
-                                "buildup-%s_%d_tab.lis" % (float_to_str(energy), file,))
-        with open(data_dir, 'r') as f:
-            s = f.read()
-        d_list = list(import_single_bdx(s, unit_energy=1E3))
-        build_up_list.append(
-            [d.get_norm(weight, extreme_singular=True) / atten_function(distance) / weight(energy) for d, distance in
-             zip(d_list, distances)])
-        if not skip_error:
-            stat_error_list.append(
-                [d.get_norm_stat_error(weight, extreme_singular=True) / atten_function(distance) / weight(energy) for
-                 d, distance in
-                 zip(d_list, distances)])
-            hist_error_list.append(
-                [d.get_norm_hist_error(weight, extreme_singular=True) / atten_function(distance) / weight(energy) for
-                 d, distance in
-                 zip(d_list, distances)])
-
-    if skip_error:
-        return BuildUpData(energies, distances, build_up_list)
-    else:
-        return BuildUpData(energies, distances, build_up_list, stat_error=stat_error_list, hist_error=hist_error_list)
-
-
 def get_buildup_data(geometry="isotropic", material="lead", weight=None, skip_error=False):
     """Get a build-up coefficient from the npy files"""
     distances = list(np.arange(0.1, 20.001, 0.1))  # Must be the ones in the simulation
