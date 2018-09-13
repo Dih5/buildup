@@ -40,14 +40,15 @@ def get_dose_weight(material="tissue", density=None):
 
     Args:
         material (str): Name of the material
-        density (float): The density of the material. Note the density is not relevant for build-up calculations.
+        density (float): The density of the material. Note the density is not relevant for build-up calculations. If
+                         None or 0, 1 is used instead.
 
     Returns:
         callable: A function representing the differential fluence to dose conversion coefficient.
 
     """
     data = np.array(xray.fetch_coefficients(material))
-    mu_en = _log_interp_1d(data[:, 0], data[:, 2] * density)
+    mu_en = _log_interp_1d(data[:, 0], data[:, 2] * density if density else data[:, 2])
     return lambda energy: energy * mu_en(energy)
 
 
