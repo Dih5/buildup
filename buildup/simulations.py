@@ -34,7 +34,8 @@ _compounds["   WATER"] = """* 276 Water liquid H2O
 MATERIAL                             1.0                              WATER
 COMPOUND         2.0  HYDROGEN       1.0    OXYGEN                    WATER"""
 
-_compounds["CONCRETE"] = """* Concrete, ordinary as given in NIST x-ray mass attenuation database.
+_compounds["CONCRETE"] = """MATERIAL         19.               0.862                              POTASSIU
+* Concrete, ordinary as given in NIST x-ray mass attenuation database.
 MATERIAL                             2.3                              CONCRETE
 COMPOUND     -0.0221  HYDROGEN -0.002484    CARBON  -0.57493    OXYGENCONCRETE
 COMPOUND   -0.015208    SODIUM -0.001266  MAGNESIU -0.019953  ALUMINUMCONCRETE
