@@ -146,7 +146,7 @@ class DetectorSingDif:
                 weights[-1] = weight(self.data[-1, 1])
         # No need to distinguish singular
         return ((self.data[:, 2] * self.data[:, 3] * 0.01 * weights * (
-                self.data[:, 1] - self.data[:, 0])) ** 2).sum() ** 0.5
+            self.data[:, 1] - self.data[:, 0])) ** 2).sum() ** 0.5
 
     def get_norm_hist_error(self, weight=None, extreme_singular=False):
         """Approximate the error in a norm due to binning"""
@@ -293,6 +293,17 @@ class BuildUpData:
             self.hist_error = np.asarray(hist_error)
         else:
             self.hist_error = None
+
+    def get_error(self, stat=True, hist=True, stat_factor=1.0):
+        if not stat and not hist:
+            raise ValueError("Both sources of error suppressed. Either stat of hist must be True.")
+        elif stat and not hist:
+            return self.stat_error * stat_factor
+        elif hist and not stat:
+            return self.hist_error
+        else:  # Both
+            # TODO: Add other composition rules
+            return self.stat_error * stat_factor + self.hist_error
 
     def get_interpolation(self, kx=1, ky=1, error=None):
         """
