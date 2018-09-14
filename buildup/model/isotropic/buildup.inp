@@ -1,5 +1,6 @@
 TITLE
 buildup
+GLOBAL                                                                OLDFLAIR
 * Set the defaults for precision simulations
 DEFAULTS                                                              PRECISIO
 !@what.1=1*MeV
