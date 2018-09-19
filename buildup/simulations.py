@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
 
-"""Create simulations for the buildup package"""
+"""Create and process simulations to extended the data in the buildup package"""
 
 import re
 import os
 import shutil
+from glob import glob
 
 import numpy as np
 from physdata import xray
 
+from buildup.api import _data_path, float_to_str, import_single_bdx
 from .api import _log_interp_1d
 
 _model_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "model")
@@ -79,3 +81,33 @@ def create_simulation(path, energy_list, geometry="mono", material_nist=None, ma
         f.write(inp_file)
 
     shutil.copy(os.path.join(_model_path, "fluscw.f"), path)
+
+
+def tab_data_to_bin(geometry="*", material="*", overwrite=False):
+    """
+    Process tab.lis files in the data directory to create equivalent npy files.
+
+    Write access to the data directory is required for this to work.
+
+    Args:
+        geometry (str): Geometry(ies) to consider. Might use a glob pattern.
+        material (str):  Material(s) to consider. Might use a glob pattern.
+        overwrite (bool):  Whether to overwrite existing files.
+
+    Returns:
+
+    """
+    re_pattern = r"buildup-([0-9]+\.?[0-9]*)_26_tab.lis"
+    glob_pattern = "buildup-*_26_tab.lis"
+    for dir in glob(os.path.join(_data_path, geometry, material)):
+        file_list = glob(os.path.join(dir, glob_pattern))
+        energies = sorted([float(re.search(re_pattern, f).group(1)) for f in file_list])
+        file = 26  # Fixed output unit
+        for energy in energies:
+            output_file_path = os.path.join(dir, "buildup-%s.npy" % float_to_str(energy))
+            if overwrite or not os.path.isfile(output_file_path):
+                data_dir = os.path.join(dir, "buildup-%s_%d_tab.lis" % (float_to_str(energy), file,))
+                with open(data_dir, 'r') as f:
+                    s = f.read()
+                np.save(output_file_path,
+                        np.asarray(list(d.data for d in import_single_bdx(s, unit_energy=1E3))))

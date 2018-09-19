@@ -237,36 +237,6 @@ def get_buildup_data(geometry="isotropic", material="lead", weight=None, skip_er
         return BuildUpData(energies, distances, build_up_list, stat_error=stat_error_list, hist_error=hist_error_list)
 
 
-def tab_data_to_bin(geometry="*", material="*", overwrite=False):
-    """
-    Process tab.lis files in the data directory to create equivalent npy files.
-
-    Write access to the data directory is required for this to work.
-
-    Args:
-        geometry (str): Geometry(ies) to consider. Might use a glob pattern.
-        material (str):  Material(s) to consider. Might use a glob pattern.
-        overwrite (bool):  Whether to overwrite existing files.
-
-    Returns:
-
-    """
-    re_pattern = r"buildup-([0-9]+\.?[0-9]*)_26_tab.lis"
-    glob_pattern = "buildup-*_26_tab.lis"
-    for dir in glob(os.path.join(_data_path, geometry, material)):
-        file_list = glob(os.path.join(dir, glob_pattern))
-        energies = sorted([float(re.search(re_pattern, f).group(1)) for f in file_list])
-        file = 26  # Fixed output unit
-        for energy in energies:
-            output_file_path = os.path.join(dir, "buildup-%s.npy" % float_to_str(energy))
-            if overwrite or not os.path.isfile(output_file_path):
-                data_dir = os.path.join(dir, "buildup-%s_%d_tab.lis" % (float_to_str(energy), file,))
-                with open(data_dir, 'r') as f:
-                    s = f.read()
-                np.save(output_file_path,
-                        np.asarray(list(d.data for d in import_single_bdx(s, unit_energy=1E3))))
-
-
 class BuildUpData:
     """
     An object representing a certain build-up factor, which is a function of the distance and the energy and has been
