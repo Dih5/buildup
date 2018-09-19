@@ -237,6 +237,26 @@ def get_buildup_data(geometry="isotropic", material="lead", weight=None, skip_er
         return BuildUpData(energies, distances, build_up_list, stat_error=stat_error_list, hist_error=hist_error_list)
 
 
+def _element_wise_min(*args):
+    """Given some arrays with same whape, find its element-wise minimum"""
+    return np.min(np.asarray(args), axis=0)
+
+
+def _element_wise_max(*args):
+    """Given some arrays with same whape, find its element-wise minimum"""
+    return np.max(np.asarray(args), axis=0)
+
+
+def _interval_prod(a, b, c, d):
+    """Find [a,b] x [c,d] using interval arithmetic"""
+    return _element_wise_min(a * c, a * d, b * c, b * d), _element_wise_max(a * c, a * d, b * c, b * d)
+
+
+def _interval_div(a, b, c, d):
+    """Find [a,b] / [c,d] using interval arithmetic ASSUMING 0 is not in [y1,y2]"""
+    return _interval_prod(a, b, 1 / d, 1 / c)
+
+
 class BuildUpData:
     """
     An object representing a certain build-up factor, which is a function of the distance and the energy and has been
@@ -399,3 +419,34 @@ class BuildUpData:
             s += " & ".join([" " + str(row_label)] + row) + "\\\\\n"
         s += "  \\end{tabular}\n \\caption{\\label{tab:my-table}A build-up factor.}\n\\end{table}"
         return s
+
+    def __truediv__(self, other):
+        """
+        Find the ratio of two build-up factors.
+
+        The statistical error is propagated using the Taylor expansion of the quotient of independent Gaussians.
+        The histogram error is propagated with interval arithmetic.
+
+        Args:
+            other (BuildUpData): The divisor.
+
+        Returns:
+            BuildUpData: The ratio of the two build-up factors, with the propagated errors.
+
+        """
+        if not isinstance(other, BuildUpData):
+            raise TypeError
+        values = self.values / other.values
+        if self.stat_error is not None and other.stat_error is not None:
+            stat_error = values * np.sqrt(
+                np.square(self.stat_error / self.values) + np.square(other.stat_error / other.values))
+        else:
+            stat_error = None
+        if self.hist_error is not None and other.hist_error is not None:
+            intervals = _interval_div(self.values - self.hist_error, self.values + self.hist_error,
+                                      other.values - other.hist_error, other.values + other.hist_error)
+            hist_error = _element_wise_max(intervals[1] - values, values - intervals[0])
+        else:
+            hist_error = None
+
+        return BuildUpData(self.energies, self.distances, values, stat_error=stat_error, hist_error=hist_error)
