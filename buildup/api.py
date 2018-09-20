@@ -344,10 +344,16 @@ class BuildUpData:
 
         """
         f = self.get_interpolation(kx=kx, ky=ky)
-        e1 = self.get_interpolation(error="stat", kx=kx, ky=ky)
-        e2 = self.get_interpolation(error="hist", kx=kx, ky=ky)
-        return BuildUpData(energies, distances, f(energies, distances), e1(energies, distances),
-                           e2(energies, distances))
+        if self.stat_error is not None:
+            new_stat_error = self.get_interpolation(error="stat", kx=kx, ky=ky)(energies, distances)
+        else:
+            new_stat_error = None
+        if self.hist_error is not None:
+            new_hist_error = self.get_interpolation(error="hist", kx=kx, ky=ky)(energies, distances)
+        else:
+            new_hist_error = None
+        return BuildUpData(energies, distances, f(energies, distances), new_stat_error,
+                           new_hist_error)
 
     def get_latex_table(self, error=None, transpose=False, number_format="%.2f"):
         """
