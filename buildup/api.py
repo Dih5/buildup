@@ -262,6 +262,8 @@ class BuildUpData:
     An object representing a certain build-up factor, which is a function of the distance and the energy and has been
     calculated for a magnitude, a material and a geometry.
 
+    This class may also represent an algebraic operation of build-up factors, like the ratio of two of them.
+
     Attributes:
         energies (numpy.ndarray): The energies in the grid.
         distances (numpy.ndarray): The distances in the grid.
@@ -304,7 +306,7 @@ class BuildUpData:
         Args:
             kx (int): Spline order in the energy.
             ky (int): Spline order in the distance.
-            error (str): Interpolate the error (in some sense) instead of the build-up. Possible values include:
+            error (str): Interpolate the error (in some sense) instead of the build-up value. Possible values include:
                 - "stat": Get the statistical error (the one due to sampling).
                 - "hist": Get the bound for the binning error (the one due to making a histogram).
                 - "total": Get the sum of both errors.
@@ -331,7 +333,7 @@ class BuildUpData:
 
     def get_interpolated_data(self, energies, distances, kx=1, ky=1):
         """
-        Get another BuildUpData instance by changing the mesh by interpolation.
+        Get another BuildUpData instance with a different mesh using interpolation.
 
         Args:
             energies (list of float): Energies in the new mesh (in MeV).
@@ -359,7 +361,7 @@ class BuildUpData:
         """
         Get a LaTeX table describing the data.
 
-        Note you might want to choose a representative mesh with the get_interpolated_data method.
+        Note you might want to choose a representative mesh with the get_interpolated_data method first.
 
         Args:
             error (str): Whether to display some errors in the table. Possible values include:
@@ -428,10 +430,14 @@ class BuildUpData:
 
     def __truediv__(self, other):
         """
-        Find the ratio of two build-up factors.
+        Find the ratio of two build-up factors defined in the same mesh.
 
         The statistical error is propagated using the Taylor expansion of the quotient of independent Gaussians.
         The histogram error is propagated with interval arithmetic.
+
+        This operation assumes meshes of both operands are the same. If they aren't, but they happen to have the same
+        shape, meaningless values will be returned. Use the get_interpolated_data if you want to compare data from
+        different meshes.
 
         Args:
             other (BuildUpData): The divisor.
