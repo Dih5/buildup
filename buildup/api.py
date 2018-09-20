@@ -325,7 +325,7 @@ class BuildUpData:
         elif error == "euclid":
             values = np.sqrt(np.asarray(self.stat_error) ** 2 + np.asarray(self.hist_error) ** 2)
         else:
-            raise ValueError("Invalidad kwarg error: %s" % str(error))
+            raise ValueError("Invalid kwarg error: %s" % str(error))
 
         return interpolate.RectBivariateSpline(self.energies, self.distances, values, kx=kx, ky=ky)
 
