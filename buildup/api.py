@@ -70,12 +70,12 @@ class DetectorSingDif:
             self.number = ""
             return
 
-        r = re.search('# Detector n:\s*([0-9]+)\s*(\S+)', tab_lis)  # Match and parse 1st line
+        r = re.search(r'# Detector n:\s*([0-9]+)\s*(\S+)', tab_lis)  # Match and parse 1st line
         self.name = r.group(2)
         self.number = r.group(1)
 
-        num_pattern = '-?[0-9]+\.?[0-9]*E[-+]?[0-9]+'
-        lines = re.findall((num_pattern + "\s*") * 4, tab_lis)  # Lines with 4 numbers
+        num_pattern = r'-?[0-9]+\.?[0-9]*E[-+]?[0-9]+'
+        lines = re.findall((num_pattern + r"\s*") * 4, tab_lis)  # Lines with 4 numbers
 
         # To scale x_min, x_max, y, yrel
         unit_scale = [unit_energy, unit_energy, unit_integrated / unit_energy, 1]
@@ -182,7 +182,7 @@ def import_single_bdx(tab_lis, unit_energy=1.0, unit_integrated=1.0):
         DetectorSingDif: The next detector in the file.
 
     """
-    detectors_str = re.findall('(# Detector n:.*?)(?=# Detector n:|# double differential distributions|\Z)', tab_lis,
+    detectors_str = re.findall(r'(# Detector n:.*?)(?=# Detector n:|# double differential distributions|\Z)', tab_lis,
                                re.DOTALL)
     for d in detectors_str:
         yield DetectorSingDif(d, unit_energy=unit_energy, unit_integrated=unit_integrated)
@@ -421,7 +421,7 @@ class BuildUpData:
             rows_label = "E [MeV]"
 
         s = "\\begin{table}\n \\begin{tabular}{%s}\n" % ("c" * (len(cols) + 1))
-        s += "& \multicolumn{%d}{c}{%s}\\\\\n" % (len(cols), cols_label)
+        s += "& \\multicolumn{%d}{c}{%s}\\\\\n" % (len(cols), cols_label)
         s += rows_label + " & " + " & ".join([str(e) for e in cols]) + "\\\\\n"
         for row_label, row in zip(rows, values):
             s += " & ".join([" " + str(row_label)] + row) + "\\\\\n"
