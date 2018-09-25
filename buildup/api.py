@@ -238,12 +238,12 @@ def get_buildup_data(geometry="isotropic", material="lead", weight=None, skip_er
 
 
 def _element_wise_min(*args):
-    """Given some arrays with same whape, find its element-wise minimum"""
+    """Given some arrays with same shape, find its element-wise minimum"""
     return np.min(np.asarray(args), axis=0)
 
 
 def _element_wise_max(*args):
-    """Given some arrays with same whape, find its element-wise minimum"""
+    """Given some arrays with same shape, find its element-wise minimum"""
     return np.max(np.asarray(args), axis=0)
 
 
@@ -369,7 +369,7 @@ class BuildUpData:
                 - "hist": Get the bound for the binning error (the one due to making a histogram).
                 - "total": Get the sum of both errors.
                 - "euclid": Get the euclidean composition of both errors.
-                " "both": Get both errors independently, first the statistical, then the binning bound.
+                - "both": Get both errors independently, first the statistical, then the binning bound.
 
             transpose (bool): Whether to transpose the table. Default is energy in rows, distance in cols.
             number_format (str): Format string for the numbers.
@@ -406,7 +406,7 @@ class BuildUpData:
             values = [[number_format % value for value in zip(*row_tuple)] for row_tuple in
                       zip(self.values, self.stat_error, self.hist_error)]
         else:
-            raise ValueError("Invalidad kwarg error: %s" % str(error))
+            raise ValueError("Invalid kwarg error: %s" % str(error))
 
         if transpose:
             values = list(map(list, zip(*values)))
