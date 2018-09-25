@@ -449,13 +449,27 @@ class BuildUpData:
         if not isinstance(other, BuildUpData):
             raise TypeError
         values = self.values / other.values
+        # Statistical error by Taylor expansion of quotient of Gaussians
         if self.stat_error is not None and other.stat_error is not None:
             stat_error = values * np.sqrt(
                 np.square(self.stat_error / self.values) + np.square(other.stat_error / other.values))
+        elif self.stat_error is not None:
+            stat_error = self.stat_error / other.values
+        elif other.stat_error is not None:
+            stat_error = values * other.stat_error / other.values
         else:
             stat_error = None
+        # Histogram error by interval arithmetic
         if self.hist_error is not None and other.hist_error is not None:
             intervals = _interval_div(self.values - self.hist_error, self.values + self.hist_error,
+                                      other.values - other.hist_error, other.values + other.hist_error)
+            hist_error = _element_wise_max(intervals[1] - values, values - intervals[0])
+        elif self.hist_error is not None:  # TODO: The following two might be simplified
+            intervals = _interval_div(self.values - self.hist_error, self.values + self.hist_error,
+                                      other.values, other.values)
+            hist_error = _element_wise_max(intervals[1] - values, values - intervals[0])
+        elif other.hist_error is not None:
+            intervals = _interval_div(self.values, self.values,
                                       other.values - other.hist_error, other.values + other.hist_error)
             hist_error = _element_wise_max(intervals[1] - values, values - intervals[0])
         else:
