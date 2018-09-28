@@ -1,5 +1,5 @@
 =============================
-buildup python module
+buildup Python module
 =============================
 
 .. image:: https://readthedocs.org/projects/buildup/badge/?version=latest
@@ -9,18 +9,20 @@ buildup python module
 
 
 
-A python module to use the build-up factors derived from methods described in a reference to add.
+A python module to use the build-up factors derived from methods described in the preprint available here_.
+
+.. _here: https://arxiv.org/abs/1809.09907
 
 .. image:: https://github.com/Dih5/buildup/raw/master/demos/demo.png
 
 
 * Free software: LGPLv3+
-* Documentation: https://buildup.readthedocs.io.
+* Documentation: https://buildup.readthedocs.io (available soon).
 
 
 Features
 --------
-* Load existent build-up data for any response function (air exposure, tissue dose, ...)
+* Load existent build-up data for any response function (air exposure, tissue dose, ...).
 * Obtain the uncertainty of the calculated factor due the numeric approximations.
 * Generate and process FLUKA simulations to extend the database.
 
@@ -42,4 +44,4 @@ Usage
 
 Check the demo_ notebook.
 
-.. _demo: https://github.com/Dih5/buildup/raw/master/demos/plotdemo.png
+.. _demo: https://github.com/Dih5/buildup/blob/master/demos/plotdemo.ipynb
