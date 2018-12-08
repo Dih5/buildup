@@ -46,6 +46,9 @@ setup(
     include_package_data=True,
     keywords=['build up', 'spectrometry', 'particle transport'],
     name='buildup',
+    package_data={
+        'buildup': ['buildup/data','buildup/model'],
+    },
     packages=find_packages(include=['buildup']),
     setup_requires=setup_requirements,
     test_suite='tests',
