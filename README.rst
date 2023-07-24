@@ -30,13 +30,15 @@ Instalation
 -----------
 To install the latest release, assuming you have a Python_ distribution with pip_::
 
-    $ pip install https://github.com/Dih5/pileup/archive/master.zip
+    $ git clone https://github.com/Dih5/buildup.git
+    $ cd buildup
+    $ pip install .
     
 .. _Python: http://www.python.org/
 .. _pip: https://pip.pypa.io/en/stable/installing/
 
 This package includes the build-up description for the most commonly used materials. In the future, a method to download
-only the desired materials from the applications will be added.
+only the desired materials from the applications might be added.
 
 
 Usage
